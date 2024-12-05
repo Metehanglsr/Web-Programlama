@@ -40,7 +40,7 @@ ve yapay zeka entegrasyonu sayesinde kullanıcılar, fotoğraf yükleyerek saç 
 
 ## UML Şeması
 
-![UML Diyagramı](https://github.com/Metehanglsr/Web-Programlama/images/uml.jpg)
+![UML Diyagramı](https://github.com/Metehanglsr/Web-Programlama/blob/main/images/uml.jpg)
 
 ## Kullanılacak Teknolojiler
 
