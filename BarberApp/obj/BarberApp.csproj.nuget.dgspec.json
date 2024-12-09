@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj": {}
+    "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj": {
+    "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj",
+        "projectUniqueName": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj",
         "projectName": "BarberApp",
-        "projectPath": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj",
+        "projectPath": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj",
         "packagesPath": "C:\\Users\\mthng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\obj\\",
+        "outputPath": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mthng\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,6 +45,18 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

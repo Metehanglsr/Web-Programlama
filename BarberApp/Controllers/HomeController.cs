@@ -6,15 +6,15 @@ namespace BarberApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly BarberDbContext _context;
+        public HomeController(BarberDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            var users = _context.Customers.ToList();
             return View();
         }
 
