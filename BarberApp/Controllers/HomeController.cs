@@ -1,5 +1,6 @@
 using BarberApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BarberApp.Controllers
@@ -14,8 +15,8 @@ namespace BarberApp.Controllers
 
         public IActionResult Index()
         {
-            var users = _context.Customers.ToList();
-            return View();
+            var services = _context.Services.Include(x => x.Category).ToList();
+            return View(services);
         }
 
         public IActionResult Privacy()

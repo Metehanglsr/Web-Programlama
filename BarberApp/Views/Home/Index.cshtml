@@ -1,8 +1,61 @@
-﻿@{
+﻿@model List<Service>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="my-5 container d-flex flex-column align-items-center justify-items-center">
+    <h1 class="my-3">Barbers & Hair Cutting</h1>
+    <p class="my-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa necessitatibus ducimus ex nesciunt optio, quaerat nobis corrupti eaque aliquid in?</p>
+    <button class="btn btn-outline-secondary my-3">Explore Our Services</button>
+</section>
+
+<hr>
+
+<section class="container">
+    <h1 class="">Barbers</h1>
+    <div class="row my-4">
+        <div class="card col-md-3 p-0 m-3 d-flex flex-column" style="width: 13rem;">
+            <div class="mb-auto">
+                <a><img src="images/gallery-1.jpg" class="card-img-top img-thumbnail" alt="..." style="height: 14rem;"></a>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center fs-3">NAME</p>
+                <hr>
+                <ul style="list-style-type:none">
+                    <li>
+                        <i class="fa-solid fa-star"></i> NAME
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section class="container my-5">
+    <h1 class="my-5">Services We Provide</h1>
+    <div class="row">
+        @foreach (var item in Model)
+
+        {
+            <div class="col-md-6">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex m-auto">
+                            <img src="images/@item.ImageUrl" class="img-fluid rounded-start p-4" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">@item.Description</p>
+                                <p class="card-text">Duration: @item.Description</p>
+                                <p class="card-text">Category: @item.Category.Name</p>
+                                <p class="card-text"><small class="text-body-secondary">Price: @item.Price $</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

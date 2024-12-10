@@ -2906,11 +2906,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj",
+      "projectUniqueName": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj",
       "projectName": "BarberApp",
-      "projectPath": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj",
+      "projectPath": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj",
       "packagesPath": "C:\\Users\\mthng\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\obj\\",
+      "outputPath": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mthng\\AppData\\Roaming\\NuGet\\NuGet.Config",

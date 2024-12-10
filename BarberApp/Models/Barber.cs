@@ -10,6 +10,7 @@ namespace BarberApp.Models
         public string Surname { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
+        public string? ImageUrl { get; set; }
         public string Specialization { get; set; }
         public string Rating { get; set; }
         public List<Review> Reviews { get; set; }

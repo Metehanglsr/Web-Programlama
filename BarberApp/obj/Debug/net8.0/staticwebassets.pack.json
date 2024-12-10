@@ -13,6 +13,82 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\appoin-banner-1.jpg",
+      "PackagePath": "staticwebassets\\images\\appoin-banner-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\appoin-banner-2.jpg",
+      "PackagePath": "staticwebassets\\images\\appoin-banner-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\footer-bg.png",
+      "PackagePath": "staticwebassets\\images\\footer-bg.png"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\footer-blog-1.jpg",
+      "PackagePath": "staticwebassets\\images\\footer-blog-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\footer-blog-2.jpg",
+      "PackagePath": "staticwebassets\\images\\footer-blog-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\gallery-1.jpg",
+      "PackagePath": "staticwebassets\\images\\gallery-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\gallery-2.jpg",
+      "PackagePath": "staticwebassets\\images\\gallery-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\gallery-3.jpg",
+      "PackagePath": "staticwebassets\\images\\gallery-3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\gallery-4.jpg",
+      "PackagePath": "staticwebassets\\images\\gallery-4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\hero-banner.jpg",
+      "PackagePath": "staticwebassets\\images\\hero-banner.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-1.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-2.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-3.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-4.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-5.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-6.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-7.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-8.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\pricing-bg.jpg"
+    },
+    {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

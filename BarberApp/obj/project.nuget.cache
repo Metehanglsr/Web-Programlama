@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iz25l+NFH1U=",
+  "dgSpecHash": "2qg2UALbp1E=",
   "success": true,
-  "projectFilePath": "C:\\Users\\mthng\\source\\repos\\BarberApp - Kopya\\BarberApp\\BarberApp.csproj",
+  "projectFilePath": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\BarberApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mthng\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\mthng\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
