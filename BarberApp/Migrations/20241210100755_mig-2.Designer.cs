@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BarberApp.Migrations
 {
     [DbContext(typeof(BarberDbContext))]
-    [Migration("20241210090656_mig-4")]
-    partial class mig4
+    [Migration("20241210100755_mig-2")]
+    partial class mig2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y7T7f/hSOwBwrl6Tp1H/XPunw2OQPXxub2Inlyxkm5o=",
+  "Hash": "EB60ZAnyE5E/G2NFVMfyolrNkIMrZno0XnEwgC6WaF4=",
   "Source": "BarberApp",
   "BasePath": "_content/BarberApp",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\appoin-banner-2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\barber.png",
+      "SourceId": "BarberApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\",
+      "BasePath": "_content/BarberApp",
+      "RelativePath": "images/barber.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\barber.png"
     },
     {
       "Identity": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\footer-bg.png",

@@ -1,4 +1,5 @@
 using BarberApp.Models;
+using BarberApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -16,7 +17,9 @@ namespace BarberApp.Controllers
         public IActionResult Index()
         {
             var services = _context.Services.Include(x => x.Category).ToList();
-            return View(services);
+            var barbers = _context.Barbers.ToList();
+            ServiceBarberViewModel serviceBarber = new ServiceBarberViewModel { Barbers = barbers,Services = services};
+            return View(serviceBarber);
         }
 
         public IActionResult Privacy()

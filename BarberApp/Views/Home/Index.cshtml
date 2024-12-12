@@ -1,12 +1,15 @@
-﻿@model List<Service>
+﻿@model ServiceBarberViewModel
 @{
+
     ViewData["Title"] = "Home Page";
+    var services = Model.Services;
+    var barbers = Model.Barbers;
 }
 
 <section class="my-5 container d-flex flex-column align-items-center justify-items-center">
     <h1 class="my-3">Barbers & Hair Cutting</h1>
     <p class="my-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa necessitatibus ducimus ex nesciunt optio, quaerat nobis corrupti eaque aliquid in?</p>
-    <button class="btn btn-outline-secondary my-3">Explore Our Services</button>
+    <a asp-action="Index" asp-controller="Services" class="btn btn-outline-secondary my-3">Explore Our Services</a>
 </section>
 
 <hr>
@@ -14,20 +17,26 @@
 <section class="container">
     <h1 class="">Barbers</h1>
     <div class="row my-4">
-        <div class="card col-md-3 p-0 m-3 d-flex flex-column" style="width: 13rem;">
-            <div class="mb-auto">
-                <a><img src="images/gallery-1.jpg" class="card-img-top img-thumbnail" alt="..." style="height: 14rem;"></a>
+        @foreach(var item in barbers)
+        {   
+            <div class="card col-md-3 p-0 m-3 d-flex flex-column" style="width: 13rem;">
+                <div class="mb-auto">
+                    <a><img src="images/@item.ImageUrl" class="card-img-top img-thumbnail" alt="..." style="height: 14rem;"></a>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-center fs-3">@item.Name @item.Surname</p>
+                    <hr>
+                    <ul style="list-style-type:none">
+                        <li>
+                            <i class="fa-solid fa-star me-1"></i>@item.Rating
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-briefcase me-1"></i>@item.Specialization
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="card-body">
-                <p class="card-text text-center fs-3">NAME</p>
-                <hr>
-                <ul style="list-style-type:none">
-                    <li>
-                        <i class="fa-solid fa-star"></i> NAME
-                    </li>
-                </ul>
-            </div>
-        </div>
+        }
     </div>
 </section>
 <hr>
@@ -35,7 +44,7 @@
 <section class="container my-5">
     <h1 class="my-5">Services We Provide</h1>
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var item in services)
 
         {
             <div class="col-md-6">
@@ -48,7 +57,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@item.Name</h5>
                                 <p class="card-text">@item.Description</p>
-                                <p class="card-text">Duration: @item.Description</p>
+                                <p class="card-text">Duration: @item.Duration</p>
                                 <p class="card-text">Category: @item.Category.Name</p>
                                 <p class="card-text"><small class="text-body-secondary">Price: @item.Price $</small></p>
                             </div>

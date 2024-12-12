@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\images\\appoin-banner-2.jpg"
     },
     {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\barber.png",
+      "PackagePath": "staticwebassets\\images\\barber.png"
+    },
+    {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\footer-bg.png",
       "PackagePath": "staticwebassets\\images\\footer-bg.png"
     },
