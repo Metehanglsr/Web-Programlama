@@ -16,5 +16,6 @@ namespace BarberApp.Models
         public List<Barber> Barbers { get; set; }
         public List<Service> Services { get; set; }
         public List<Expanse> Expanses { get; set; }
+        public List<Appointment> Appointments { get; set; }
     }
 }

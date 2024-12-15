@@ -5,7 +5,7 @@
 }
 @if (TempData["msg"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show my-5" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show my-5 container" role="alert">
         <strong>Hata!</strong> @TempData["msg"]
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 d-flex justify-content-center align-items-center">
                 <div class="form-group">
-                    <input type="date" class="form-control" id="dateInput" name="date" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")">
+                    <input readonly type="date" class="form-control" id="dateInput" name="date" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")">
                     <!-- Hidden input ile date parametresini formda saklayalım -->
                     <input type="hidden" name="selectedDate" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")" />
                 </div>

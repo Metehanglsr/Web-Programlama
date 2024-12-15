@@ -1,0 +1,63 @@
+﻿@model Admin
+@{
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<!-- Sidebar (Offcanvas) -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+    <div class="offcanvas-header">
+        <h5 id="sidebarLabel" class="offcanvas-title">Sidebar</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Anasayfa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Manage Barbers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Manage Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Logout</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+                ☰ Menü
+            </button>
+            <div class="my-4">
+                <h1>Hoş Geldiniz @Model.Name</h1>
+                <hr>
+            </div>
+            <div class="row my-5">
+                <h1 class="my-3">Expanses</h1>
+                <hr>
+                @foreach (var expanse in Model.Expanses)
+                {
+                    <div class="col-md-4">
+                        <div class="card p-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@expanse.ExpanseCategory</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@expanse.ExpanseAmount</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">@expanse.ExpanseDate</h6>
+                                <p class="card-text">@expanse.ExpanseDescription</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

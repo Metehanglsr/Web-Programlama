@@ -16,5 +16,6 @@ namespace BarberApp.Models
         public List<Review> Reviews { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<Schedule> Schedules { get; set; }
+        public int AdminID { get; set; }
     }
 }

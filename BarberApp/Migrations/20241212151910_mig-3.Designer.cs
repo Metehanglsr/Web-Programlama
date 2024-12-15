@@ -3,6 +3,7 @@ using System;
 using BarberApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BarberApp.Migrations
 {
     [DbContext(typeof(BarberDbContext))]
-    partial class BarberDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241212151910_mig-3")]
+    partial class mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace BarberApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AppointmentID"));
 
-                    b.Property<int>("AdminID")
+                    b.Property<int?>("AdminID")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("AppointmentDate")
@@ -93,7 +96,7 @@ namespace BarberApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BarberID"));
 
-                    b.Property<int>("AdminID")
+                    b.Property<int?>("AdminID")
                         .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
@@ -184,7 +187,7 @@ namespace BarberApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ExpanseID"));
 
-                    b.Property<int>("AdminID")
+                    b.Property<int?>("AdminID")
                         .HasColumnType("integer");
 
                     b.Property<float>("ExpanseAmount")
@@ -277,7 +280,7 @@ namespace BarberApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ServiceID"));
 
-                    b.Property<int>("AdminID")
+                    b.Property<int?>("AdminID")
                         .HasColumnType("integer");
 
                     b.Property<int>("CategoryID")
@@ -329,9 +332,7 @@ namespace BarberApp.Migrations
                 {
                     b.HasOne("BarberApp.Models.Admin", null)
                         .WithMany("Appointments")
-                        .HasForeignKey("AdminID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminID");
 
                     b.HasOne("BarberApp.Models.Barber", "Barber")
                         .WithMany("Appointments")
@@ -354,18 +355,14 @@ namespace BarberApp.Migrations
                 {
                     b.HasOne("BarberApp.Models.Admin", null)
                         .WithMany("Barbers")
-                        .HasForeignKey("AdminID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminID");
                 });
 
             modelBuilder.Entity("BarberApp.Models.Expanse", b =>
                 {
                     b.HasOne("BarberApp.Models.Admin", null)
                         .WithMany("Expanses")
-                        .HasForeignKey("AdminID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminID");
                 });
 
             modelBuilder.Entity("BarberApp.Models.Review", b =>
@@ -402,9 +399,7 @@ namespace BarberApp.Migrations
                 {
                     b.HasOne("BarberApp.Models.Admin", null)
                         .WithMany("Services")
-                        .HasForeignKey("AdminID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminID");
 
                     b.HasOne("BarberApp.Models.Category", "Category")
                         .WithMany("Services")

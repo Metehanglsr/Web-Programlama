@@ -13,6 +13,7 @@ namespace BarberApp.Models
         public int BarberID{ get; set; }
         public Barber Barber { get; set; }
         public List<ServiceAppointment> ServiceAppointments { get; set; }
+        public int AdminID { get; set; }
     }
     public enum AppointmentStatus
     {

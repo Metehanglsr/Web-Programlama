@@ -14,5 +14,6 @@ namespace BarberApp.Models
         public List<ServiceAppointment> ServiceAppointments { get; set; }
         public int CategoryID { get; set; }
         public Category Category{ get; set; }
+        public int AdminID { get; set; }
     }
 }
