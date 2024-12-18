@@ -14,7 +14,7 @@
 }
 @if (ViewBag.SelectedDate == null)
 {
-    ViewBag.SelectedDate = DateOnly.FromDateTime(DateTime.Now);
+    ViewBag.SelectedDate = DateTime.Now;
 }
 <form method="post" asp-action="RandevuOlustur" asp-controller="Appointment">
     <section class="container my-5 border p-5 d-flex flex-column justify-content-center align-items-center">
@@ -27,7 +27,6 @@
             <div class="col-md-6 d-flex justify-content-center align-items-center">
                 <div class="form-group">
                     <input readonly type="date" class="form-control" id="dateInput" name="date" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")">
-                    <!-- Hidden input ile date parametresini formda saklayalım -->
                     <input type="hidden" name="selectedDate" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")" />
                 </div>
             </div>
@@ -65,21 +64,14 @@
             {
                 if (ViewBag.SelectedDate.DayOfWeek == schedule.DayOfWeek)
                 {
-                    // Berberin o gün randevuları
                     var appointments = barber.Appointments
                     .Where(a => a.AppointmentDate.Date == ViewBag.SelectedDate.Date)
-                    .Select(a => a.AppointmentDate.TimeOfDay)
+                    .Select(a => TimeZoneInfo.ConvertTimeFromUtc(a.AppointmentDate, TimeZoneInfo.Local).TimeOfDay)
                     .ToList();
-
-                    // Çalışma saatleri (örnek: 09:00 - 17:00)
                     var workingHours = Enumerable.Range(schedule.StartTime.Hour, schedule.EndTime.Hour - schedule.StartTime.Hour + 1)
                     .Select(h => new TimeSpan(h, 0, 0))
                     .ToList();
-
-                    // Müsait saatleri hesapla
                     var availableHours = workingHours.Except(appointments).ToList();
-
-                    // Eğer müsait saat varsa, berberi listele
                     if (availableHours.Any())
                     {
                         <div class="border d-flex row my-5">

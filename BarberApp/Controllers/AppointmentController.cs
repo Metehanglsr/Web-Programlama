@@ -50,9 +50,9 @@ namespace BarberApp.Controllers
             return RedirectToAction("Index", new { date = newDate.ToString("yyyy-MM-dd") });
         }
         [HttpPost]
-        public IActionResult RandevuOlustur(DateOnly selectedDate, string selectedTime, int BarberID,List<int> ServiceIDs,int CustomerID)
+        public IActionResult RandevuOlustur(DateOnly selectedDate, string selectedTime, int BarberID,List<int> ServiceID,int CustomerID)
         {
-            if(ServiceIDs.Count==0)
+            if(ServiceID.Count==0)
             {
                 TempData["msg"] = "Hizmetlerden en az bir tanesi seçilmelidir!";
                 return RedirectToAction("Index");
@@ -68,7 +68,7 @@ namespace BarberApp.Controllers
             };
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
-            foreach (var serviceID in ServiceIDs)
+            foreach (var serviceID in ServiceID)
             {
                 _context.ServiceAppointments.Add(new ServiceAppointment
                 {
