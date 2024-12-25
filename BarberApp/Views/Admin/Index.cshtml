@@ -1,4 +1,4 @@
-﻿@model Admin
+﻿@model BarberExpanseViewModel
 @{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
     DateTime Today = DateTime.Now;
@@ -7,25 +7,28 @@
 <!-- Sidebar (Offcanvas) -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
     <div class="offcanvas-header">
-        <h5 id="sidebarLabel" class="offcanvas-title">Admin Paneli</h5>
+        <h5 id="sidebarLabel" class="offcanvas-title">Admin Panel</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Anasayfa</a>
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Admin">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="ManageBarbers" asp-controller="Admin">Berberleri Yönet</a>
+                <a class="nav-link text-dark" asp-action="ManageBarbers" asp-controller="Admin">Manage Barbers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="Appointments" asp-controller="Admin">Randevular</a>
+                <a class="nav-link text-dark" asp-action="ManageAppointments" asp-controller="Admin">Manage Appointments</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="ManageServices" asp-controller="Admin">Hizmetleri Yönet</a>
+                <a class="nav-link text-dark" asp-action="ManageServices" asp-controller="Admin">Manage Services</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="Logout" asp-controller="Admin">Çıkış Yap</a>
+                <a class="nav-link text-dark" asp-action="ManageAdmins" asp-controller="Admin">Manage Admins</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-action="LogOut" asp-controller="Account">Log Out</a>
             </li>
         </ul>
     </div>
@@ -36,23 +39,22 @@
     <div class="row my-5">
         <div class="col-md-12">
             <button class="btn btn-primary mb-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-                ☰ Menü
+               ☰ Menu
             </button>
             <div class="my-4">
-                <h1>Hoş Geldiniz @Model.Name</h1>
+                <h1 class="text-center">Welcome <span style="color:darkgoldenrod">@Model.user.FirstName @Model.user.LastName</span></h1>
                 <hr>
             </div>
-
-            <h2 class="my-3">Expanses</h2>
+            <h2 class="my-3 text-center">Expanses</h2>
             <hr>
             <div class="row">
                 @foreach (var expanse in Model.Expanses)
                 {
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm p-3" style="width: 18rem;">
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">@expanse.ExpanseCategory</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">@expanse.ExpanseAmount</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">@expanse.ExpanseAmount $</h6>
                                 <h6 class="card-subtitle mb-2 text-muted">@expanse.ExpanseDate</h6>
                                 <p class="card-text">@expanse.ExpanseDescription</p>
                             </div>
@@ -61,7 +63,8 @@
                 }
             </div>
 
-            <h2 class="my-3">Berberler</h2>
+
+            <h2 class="my-3">Barbers</h2>
             <div class="row">
                 @foreach (var barber in Model.Barbers)
                 {
@@ -76,7 +79,7 @@
                                         <h5 class="card-title">@barber.Name @barber.Surname</h5>
                                         <p class="card-text">Rating: @barber.Rating</p>
                                         <p class="card-text">Specialization: @barber.Specialization</p>
-                                        <p class="card-text"><strong>Çalışma Saatleri:</strong></p>
+                                        <p class="card-text"><strong>Working Hours:</strong></p>
                                         @foreach (var schedule in barber.Schedules)
                                         {
                                             <p class="card-text">@schedule.DayOfWeek | @schedule.StartTime | @schedule.EndTime</p>
@@ -85,8 +88,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                        <h5 class="card-title">Randevular:</h5>
-                                        <input type="date" class="form-control mb-3" id="appointmentDate-@barber.BarberID" value="@Today.ToString("yyyy-MM-dd")" />
+                                        <h5 class="card-title">Appointments:</h5>
+                                        <input name="date" type="date" class="form-control mb-3" id="appointmentDate-@barber.BarberID" value="@Today.ToString("yyyy-MM-dd")" />
                                         <input type="hidden" id="barberId" value="@barber.BarberID" />
                                         <div id="appointmentsContainer-@barber.BarberID"></div>
                                     </div>
@@ -104,78 +107,77 @@
     document.querySelectorAll("input[type='date']").forEach(input => {
         input.addEventListener("change", function () {
             const selectedDate = this.value;
-            const barberId = this.id.split('-')[1];  // input ID'sinden barberId'yi alıyoruz
-
-            // Tarihi yyyy-MM-dd formatına dönüştür
+            const barberId = this.id.split('-')[1];
             const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
 
-            // Randevulara ait veriyi almak için API isteği
             fetch(`/Admin/GetAppointmentsByDateAndBarber?barberId=${barberId}&date=${formattedDate}`)
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById(`appointmentsContainer-${barberId}`);
-                    container.innerHTML = ""; // Eski randevuları temizle
+                    container.innerHTML = "";
 
-                    // Eğer gelen veri boşsa "randevu bulunmuyor" mesajı göster
-                    if (!data || !data.appointments || data.appointments.$values.length === 0) {
-                        container.innerHTML = "<p>Bu tarihte randevu bulunmuyor.</p>";
+                    if (!data || !data.appointments || !data.appointments.$values || data.appointments.$values.length === 0) {
+                        container.innerHTML = "<p>There are no appointments available on this date.</p>";
                     } else {
-                        // Toplam günlük kazancı yazdırıyoruz
-                        const dailyEarnings = data.dailyEarnings.toFixed(2);  // Kazancı 2 ondalıklı olarak formatlıyoruz
+                        const dailyEarnings = data.dailyEarnings ? data.dailyEarnings.toFixed(2) : "0.00";
                         const earningsDiv = document.createElement("div");
-                        earningsDiv.classList.add("alert", "alert-info", "mb-3"); // Kazanç alanı için Bootstrap alert sınıfı
-                        earningsDiv.innerHTML = `<strong>Toplam Günlük Kazanç: ${dailyEarnings} $</strong>`;
+                        earningsDiv.classList.add("alert", "alert-info", "mb-3");
+                        earningsDiv.innerHTML = `<strong>Total Daily Earnings: ${dailyEarnings} $</strong>`;
                         container.appendChild(earningsDiv);
 
-                        // Verileri işleyelim ve her randevuyu ekleyelim
                         data.appointments.$values.forEach(appointment => {
-                            const customerName = appointment.customer && appointment.customer.name ? appointment.customer.name : "Bilgi yok";
-                            const appointmentDate = appointment.appointmentDate ? new Date(appointment.appointmentDate).toLocaleString() : "Bilgi yok";
-                            const status = appointment.status === 0 ? "Beklemede" : "Onaylı";
+                            const appointmentDate = appointment.appointmentDate ? new Date(appointment.appointmentDate).toLocaleString() : "No Information";
+                            const status = appointment.status === 0 ? "Pending" : "Approved";
+                            const customerName = appointment.customer && appointment.customer.firstName && appointment.customer.lastName ? `${appointment.customer.firstName} ${appointment.customer.lastName}` : "No Information";
 
                             const appointmentDiv = document.createElement("div");
-                            appointmentDiv.classList.add("card", "mb-3"); // Her randevu için kart ekliyoruz
-
-                            // Kart içeriğini oluşturuyoruz
+                            appointmentDiv.classList.add("card", "mb-3");
                             appointmentDiv.innerHTML = `
                                 <div class="card-header">
-                                    <h5 class="card-title">Randevu Tarihi: ${appointmentDate}</h5>
-                                    <p class="card-text">Durum: ${status}</p>
-                                    <button class="btn btn-danger btn-sm" onclick="this.closest('.card').remove()">Kapat</button>
+                                    <h5 class="card-title">Appointment Date: ${appointmentDate}</h5>
+                                    <p class="card-text">Status: ${status}</p>
+                                    <button class="btn btn-danger btn-sm" onclick="this.closest('.card').remove()">Close</button>
                                 </div>
                                 <div class="card-body">
-                                    <p><strong>Müşteri:</strong> ${customerName}</p>
+                                    <p><strong>Customer:</strong> ${customerName}</p>
                                     <hr>
                                     <div class="row">
                             `;
 
-                            // ServiceAppointments'taki her servisi ekliyoruz
-                            appointment.serviceAppointments.$values.forEach(serviceAppointment => {
-                                const serviceName = serviceAppointment.service ? serviceAppointment.service.name : "Bilinmeyen Hizmet";
-                                const servicePrice = serviceAppointment.service ? serviceAppointment.service.price.toFixed(2) : "0.00";
+                            if (appointment.serviceAppointments && appointment.serviceAppointments.$values && appointment.serviceAppointments.$values.length > 0) {
+                                appointment.serviceAppointments.$values.forEach(serviceAppointment => {
+                                    const serviceName = serviceAppointment.serviceName || "Unknown Service";  // serviceName'ı direkt alıyoruz
+                                    const servicePrice = serviceAppointment.servicePrice ? serviceAppointment.servicePrice.toFixed(2) : "0.00";  // servicePrice'ı direkt alıyoruz
 
-                                appointmentDiv.innerHTML += `
-                                    <div class="col-md-6"> <!-- Hizmetler yatayda düzgün sıralansın diye -->
-                                        <div class="card mb-2">
-                                            <div class="card-body">
-                                                <strong>Hizmet:</strong> ${serviceName} - ${servicePrice} $
+                                    appointmentDiv.innerHTML += `
+                                        <div class="col-md-6">
+                                            <div class="card mb-2">
+                                                <div class="card-body">
+                                                    <strong>Service:</strong> ${serviceName} - ${servicePrice} $
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    `;
+                                });
+                            } else {
+                                appointmentDiv.innerHTML += `
+                                    <p>No services available for this appointment.</p>
                                 `;
-                            });
+                            }
 
-                            appointmentDiv.innerHTML += `</div></div>`; // Kartın kapanışı
+                            appointmentDiv.innerHTML += `</div></div>`;
                             container.appendChild(appointmentDiv);
                         });
                     }
                 })
                 .catch(error => {
-                    console.error("Hata:", error);
+                    console.error("Error:", error);
                     const container = document.getElementById(`appointmentsContainer-${barberId}`);
-                    container.innerHTML = "<p>Bir hata oluştu. Lütfen tekrar deneyin.</p>";
+                    container.innerHTML = "<p>An error occurred. Please try again.</p>";
                 });
         });
     });
+
+
 
 </script>

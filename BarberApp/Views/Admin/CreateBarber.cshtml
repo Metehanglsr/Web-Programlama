@@ -1,0 +1,126 @@
+﻿<div class="container mt-5">
+    <a asp-action="Index" asp-controller="Admin" class="btn-primary btn">Go Back</a>
+    <h2 class="text-center mb-4">Barber Information Form</h2>
+    <form asp-action="CreateBarber" asp-controller="Admin">
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text"
+                       class="form-control"
+                       id="name"
+                       placeholder="Enter barber's name" 
+                       name="Name"
+                       />
+            </div>
+
+            <!-- Surname Field -->
+            <div class="mb-3 col-md-6">
+                <label for="surname" class="form-label">Surname</label>
+                <input type="text"
+                       class="form-control"
+                       id="surname"
+                       placeholder="Enter barber's surname" 
+                       name="SurName"
+                       />
+            </div>
+
+            <!-- Phone Number Field -->
+            <div class="mb-3 col-md-6">
+                <label for="phonenumber" class="form-label">Phone Number</label>
+                <input type="tel"
+                       class="form-control"
+                       id="phonenumber"
+                       placeholder="Enter phone number" 
+                       name="PhoneNumber"
+                       />
+            </div>
+
+            <!-- Specialization Field -->
+            <div class="mb-3 col-md-6">
+                <label for="specialization" class="form-label">Specialization</label>
+                <input type="text"
+                       class="form-control"
+                       id="specialization"
+                       placeholder="Enter specialization (e.g., Haircut, Beard Trim)" 
+                       name="Specialization"
+                       />
+            </div>
+
+            <div class="mb-3 col-md-6">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="number"
+                       class="form-control"
+                       id="rating"
+                       placeholder="Enter rating (1-10)"
+                       min="1"
+                       max="10" 
+                       name="Rating"/>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="image" class="form-label">Image Url</label>
+                <input type="text"
+                       class="form-control"
+                       id="image"
+                       placeholder="Enter image url"
+                       name="ImageUrl" />
+            </div>
+            <hr>
+            <div>
+                <div class="mb-3">
+                    <label class="form-label">Select Days of the Week</label>
+                    @for (int i = 0; i < 7; i++)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input day-checkbox"
+                                   type="checkbox"
+                                   id="dayOfWeek_@i"
+                                   name="DayOfWeek"
+                                   value="@i"
+                                   onchange="toggleTimeInputs(@i)">
+                            <label class="form-check-label" for="dayOfWeek_@i">@((DayOfWeek)i)</label>
+                        </div>
+
+                        <!-- Start and End Time for each day -->
+                        <div id="timeInputs_@i" class="time-inputs mb-3" style="display: none;">
+                            <div class="mb-2">
+                                <label for="startTime_@i" class="form-label">Start Time for @((DayOfWeek)i)</label>
+                                <select class="form-select" id="startTime_@i" name="StartTime">
+                                    <option value="" disabled selected>Select start time</option>
+                                    @for (int j = 9; j < 18; j++)
+                                    {
+                                        <option value="@j:00">@j:00</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="endTime_@i" class="form-label">End Time for @((DayOfWeek)i)</label>
+                                <select class="form-select" id="endTime_@i" name="EndTime">
+                                    <option value="" disabled selected>Select end time</option>
+                                    @for (int j = 9; j < 18; j++)
+                                    {
+                                        <option value="@j:00">@j:00</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+</div>
+<script>
+    function toggleTimeInputs(dayIndex) {
+        const timeInputs = document.getElementById(`timeInputs_${dayIndex}`);
+        const checkbox = document.getElementById(`dayOfWeek_${dayIndex}`);
+        if (checkbox.checked) {
+            timeInputs.style.display = "block";
+        } else {
+            timeInputs.style.display = "none";
+        }
+    }
+</script>

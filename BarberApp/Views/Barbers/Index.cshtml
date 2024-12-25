@@ -1,0 +1,50 @@
+﻿@model List<Barber>
+@{
+    string data = ViewBag.SortBy;
+}
+
+    <h1 class="my-3 text-center">Our Barbers</h1>
+    <section class="container">
+    <form asp-action="Index" asp-controller="Barbers" class="d-inline">
+        <select name="sortBy" class="form-select w-auto" onchange="this.form.submit()">
+            @if(data == "name")
+            {
+                <option value="name" selected>Sort by Name</option>
+                <option value="rating">Sort by Rating</option>
+            }
+            @if(data == "rating")
+            {
+                <option value="name">Sort by Name</option>
+                <option value="rating" selected>Sort by Rating</option>
+            }
+            @if(data==null)
+            {
+                <option value="name" selected disabled>Sort by Barbers</option>
+                <option value="name">Sort by Name</option>
+                <option value="rating">Sort by Rating</option>
+            }
+        </select>
+    </form>
+        <div class="row justify-content-center">
+            @foreach (var item in Model)
+            {
+
+            <a asp-action="Details" asp-controller="Barbers" asp-route-id="@item.BarberID" style="text-decoration: none; color: inherit;">
+                <div class="border rounded d-flex row my-5">
+                    <div class="col-md-4 text-center">
+                        <img src="~/images/@item.ImageUrl" class="img-fluid rounded" style="width: 15rem;" alt="@item.Name">
+                    </div>
+                    <div class="col-md-8 p-4">
+                        <h5><strong>Name:</strong> @item.Name @item.Surname</h5>
+                        <br />
+                        <br />
+                        <p><strong>Specialization:</strong> @item.Specialization</p>
+                        <p><strong>Rating:</strong> @item.Rating</p>
+                        <p><strong>Contact Number:</strong> @item.PhoneNumber</p>
+                    </div>
+                </div>
+            </a>
+            }
+        </div>
+    </section>
+    <hr>

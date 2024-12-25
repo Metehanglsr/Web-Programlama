@@ -1,0 +1,81 @@
+﻿@model ServiceCategoryViewModel
+
+@{
+    ViewData["Title"] = "Create Service";
+    var categories = Model.Categories;
+    var service = Model.Services.FirstOrDefault();
+}
+
+
+<div class="container">
+    <a asp-action="Index" asp-controller="Admin" class="btn-primary btn">Go Back</a>
+
+    <form asp-action="EditService" asp-controller="Admin" method="post">
+        <!-- Service Name -->
+        <h2 class="my-3">Create Service</h2>
+        <input type="hidden" name="ServiceID" value="@service.ServiceID" />
+        <div class="form-group">
+            <label for="Name">Service Name</label>
+            <input id="Name" name="Name" class="form-control" value="@service.Name" />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <input id="Description" type="text" name="Description" class="form-control" value="@service.Description" />
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="Price">Price</label>
+            <input id="Price" name="Price" type="text" class="form-control" value="@service.Price" />
+        </div>
+
+        <!-- Duration -->
+        <div class="form-group">
+            <label for="Duration">Duration (minutes)</label>
+            <input id="Duration" name="Duration" type="text" class="form-control" value=" @service.Duration" />
+        </div>
+        <div class="form-group">
+            <label for="imageUrl">Image Url (example.png,jpg,jpeg)</label>
+            <input id="imageUrl" name="ImageUrl" type="text" class="form-control" value=" @service.ImageUrl" />
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+            <label for="CategoryID">Category</label>
+            <select id="CategoryID" name="CategoryID" class="form-control">
+                <option disabled>Select a category</option>
+                @foreach (var category in categories)
+                {
+                    if (category.Name == service.Category.Name)
+                    {
+                        <option value="@category.CategoryID" selected>@category.Name</option>
+                    }
+                    <option value="@category.CategoryID">@category.Name</option>
+                }
+            </select>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100 my-3">Save Changes</button>
+    </form>
+</div>
+
+<!-- Show Validation Errors -->
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger mt-3">
+        <ul>
+            @foreach (var error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Show success message -->
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-info mt-3">@TempData["msg"]</div>
+}

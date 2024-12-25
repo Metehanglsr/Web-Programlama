@@ -1,0 +1,49 @@
+﻿@model List<Service>
+
+<section class="container my-5">
+    <a asp-action="Index" asp-controller="Admin" class="btn-primary btn">Go Back</a>
+
+    <h2>Service Management</h2>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["msg"]
+        </div>
+    }
+
+    <a href="@Url.Action("CreateService", "Admin")" class="btn btn-primary mb-3">Add New Service</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Duration</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in Model)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>@service.Price.ToString("C")</td>
+                    <td>@service.Duration</td>
+                    <td>@service.Category.Name</td>
+                    <td>
+                        <a href="@Url.Action("EditService", "Admin", new { id = service.ServiceID })" class="btn btn-warning btn-sm">Edit</a>
+
+                        <form asp-action="DeleteService" asp-controller="Admin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@service.ServiceID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\BarberSaloon.png",
+      "PackagePath": "staticwebassets\\images\\BarberSaloon.png"
+    },
+    {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\appoin-banner-1.jpg",
       "PackagePath": "staticwebassets\\images\\appoin-banner-1.jpg"
     },
@@ -23,6 +27,18 @@
     {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\barber.png",
       "PackagePath": "staticwebassets\\images\\barber.png"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\barber1.png",
+      "PackagePath": "staticwebassets\\images\\barber1.png"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\barber2.png",
+      "PackagePath": "staticwebassets\\images\\barber2.png"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\barber3.png",
+      "PackagePath": "staticwebassets\\images\\barber3.png"
     },
     {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\footer-bg.png",
@@ -91,6 +107,10 @@
     {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\pricing-bg.jpg",
       "PackagePath": "staticwebassets\\images\\pricing-bg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\images\\randomimage.jpg",
+      "PackagePath": "staticwebassets\\images\\randomimage.jpg"
     },
     {
       "Id": "C:\\Users\\mthng\\source\\repos\\BarberApp\\BarberApp\\wwwroot\\js\\site.js",

@@ -6,7 +6,7 @@
 @if (TempData["msg"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show my-5 container" role="alert">
-        <strong>Hata!</strong> @TempData["msg"]
+        <strong>Error!</strong> @TempData["msg"]
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -40,7 +40,7 @@
 
     <section class="container my-5">
         <div class="form-group">
-            <label>Hizmetler</label>
+            <label>Services</label>
             <div class="form-check">
                 @foreach (var item in services)
                 {
@@ -79,13 +79,13 @@
                                 <img src="images/@barber.ImageUrl" class="card-img-top img-fluid" style="width: 15rem;" alt="">
                             </div>
                             <div class="col-md-8 p-5">
-                                <p>Adı Soyadı: @barber.Name @barber.Surname</p>
-                                <p>Telefon Numarası: @barber.PhoneNumber</p>
-                                <p>Yeteneği: @barber.Specialization</p>
-                                <p>Puanı: @barber.Rating</p>
+                                <p>Full Name: @barber.Name @barber.Surname</p>
+                                <p>Phone Number: @barber.PhoneNumber</p>
+                                <p>Specialization: @barber.Specialization</p>
+                                <p>Rating: @barber.Rating</p>
                                 <input type="hidden" name="BarberID" value="@barber.BarberID" />
                                 <div>
-                                    <p>Müsait saatler:</p>
+                                    <p>Available hours:</p>
                                     @foreach (var hour in availableHours)
                                     {
                                         <button type="submit" class="btn btn-outline-info p-2" name="selectedTime" value="@hour.ToString(@"hh\:mm")">@hour.ToString(@"hh\:mm")</button>

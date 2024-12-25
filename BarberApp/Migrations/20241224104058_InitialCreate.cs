@@ -4,28 +4,32 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BarberApp.Migrations
 {
     /// <inheritdoc />
-    public partial class mig1 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admins",
+                name: "Barbers",
                 columns: table => new
                 {
-                    AdminID = table.Column<int>(type: "integer", nullable: false)
+                    BarberID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserName = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false)
+                    Surname = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
+                    Specialization = table.Column<string>(type: "text", nullable: false),
+                    Rating = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admins", x => x.AdminID);
+                    table.PrimaryKey("PK_Barbers", x => x.BarberID);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,46 +47,6 @@ namespace BarberApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Surname = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Barbers",
-                columns: table => new
-                {
-                    BarberID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Surname = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: true),
-                    Specialization = table.Column<string>(type: "text", nullable: false),
-                    Rating = table.Column<string>(type: "text", nullable: false),
-                    AdminID = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Barbers", x => x.BarberID);
-                    table.ForeignKey(
-                        name: "FK_Barbers_Admins_AdminID",
-                        column: x => x.AdminID,
-                        principalTable: "Admins",
-                        principalColumn: "AdminID");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Expanses",
                 columns: table => new
                 {
@@ -91,17 +55,147 @@ namespace BarberApp.Migrations
                     ExpanseCategory = table.Column<string>(type: "text", nullable: false),
                     ExpanseAmount = table.Column<float>(type: "real", nullable: false),
                     ExpanseDescription = table.Column<string>(type: "text", nullable: false),
-                    ExpanseDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    AdminID = table.Column<int>(type: "integer", nullable: true)
+                    ExpanseDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Expanses", x => x.ExpanseID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<int>(type: "integer", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    NormalizedName = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    isAdmin = table.Column<bool>(type: "boolean", nullable: false),
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "text", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    RoleId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedules",
+                columns: table => new
+                {
+                    ScheduleID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DayOfWeek = table.Column<int>(type: "integer", nullable: false),
+                    StartTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    EndTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    BarberID = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedules", x => x.ScheduleID);
                     table.ForeignKey(
-                        name: "FK_Expanses_Admins_AdminID",
-                        column: x => x.AdminID,
-                        principalTable: "Admins",
-                        principalColumn: "AdminID");
+                        name: "FK_Schedules_Barbers_BarberID",
+                        column: x => x.BarberID,
+                        principalTable: "Barbers",
+                        principalColumn: "BarberID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,17 +209,11 @@ namespace BarberApp.Migrations
                     Price = table.Column<float>(type: "real", nullable: false),
                     Duration = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
-                    CategoryID = table.Column<int>(type: "integer", nullable: false),
-                    AdminID = table.Column<int>(type: "integer", nullable: true)
+                    CategoryID = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.ServiceID);
-                    table.ForeignKey(
-                        name: "FK_Services_Admins_AdminID",
-                        column: x => x.AdminID,
-                        principalTable: "Admins",
-                        principalColumn: "AdminID");
                     table.ForeignKey(
                         name: "FK_Services_Categories_CategoryID",
                         column: x => x.CategoryID,
@@ -155,10 +243,10 @@ namespace BarberApp.Migrations
                         principalColumn: "BarberID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Appointments_Customers_CustomerID",
+                        name: "FK_Appointments_User_CustomerID",
                         column: x => x.CustomerID,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerID",
+                        principalTable: "User",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -184,32 +272,10 @@ namespace BarberApp.Migrations
                         principalColumn: "BarberID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reviews_Customers_CustomerID",
+                        name: "FK_Reviews_User_CustomerID",
                         column: x => x.CustomerID,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Schedules",
-                columns: table => new
-                {
-                    ScheduleID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DayOfWeek = table.Column<int>(type: "integer", nullable: false),
-                    StartTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    EndTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    BarberID = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schedules", x => x.ScheduleID);
-                    table.ForeignKey(
-                        name: "FK_Schedules_Barbers_BarberID",
-                        column: x => x.BarberID,
-                        principalTable: "Barbers",
-                        principalColumn: "BarberID",
+                        principalTable: "User",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -237,6 +303,15 @@ namespace BarberApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, null, "Admin", "ADMIN" },
+                    { 2, null, "Customer", "CUSTOMER" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_BarberID",
                 table: "Appointments",
@@ -246,16 +321,6 @@ namespace BarberApp.Migrations
                 name: "IX_Appointments_CustomerID",
                 table: "Appointments",
                 column: "CustomerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Barbers_AdminID",
-                table: "Barbers",
-                column: "AdminID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Expanses_AdminID",
-                table: "Expanses",
-                column: "AdminID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_BarberID",
@@ -278,11 +343,6 @@ namespace BarberApp.Migrations
                 column: "ServiceID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_AdminID",
-                table: "Services",
-                column: "AdminID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Services_CategoryID",
                 table: "Services",
                 column: "CategoryID");
@@ -298,10 +358,28 @@ namespace BarberApp.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
+                name: "RoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
                 name: "Schedules");
 
             migrationBuilder.DropTable(
                 name: "ServiceAppointments");
+
+            migrationBuilder.DropTable(
+                name: "UserClaims");
+
+            migrationBuilder.DropTable(
+                name: "UserLogins");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "UserTokens");
 
             migrationBuilder.DropTable(
                 name: "Appointments");
@@ -313,13 +391,10 @@ namespace BarberApp.Migrations
                 name: "Barbers");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Admins");
         }
     }
 }

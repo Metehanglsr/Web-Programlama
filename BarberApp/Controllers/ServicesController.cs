@@ -1,10 +1,12 @@
 ﻿using BarberApp.Models;
 using BarberApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberApp.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         private readonly BarberDbContext _context;

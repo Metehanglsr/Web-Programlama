@@ -1,0 +1,70 @@
+﻿@model User
+
+<section class="container my-5">
+    <h2>Appointment Management</h2>
+    @if (TempData["msg"] != null)
+
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["msg"]
+        </div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Barber</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+                <th>Transactions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Appointments.Any())
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No appointments found</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var appointment in Model.Appointments)
+                {
+                    <tr>
+                        <td>@Model.FirstName @Model.LastName</td>
+                        <td>@appointment.Barber.Name @appointment.Barber.Surname</td>
+                        <td>@appointment.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            @if (appointment.Status == AppointmentStatus.Pending)
+
+                            {
+                                <span class="badge bg-secondary">Pending</span>
+                            }
+
+                            else if (appointment.Status == AppointmentStatus.Confirmed)
+
+                            {
+                                <span class="badge bg-success">Confirmed</span>
+                            }
+
+                            else if (appointment.Status == AppointmentStatus.Cancelled)
+
+                            {
+                                <span class="badge bg-danger">Canceled</span>
+                            }
+                        </td>
+                        <td>
+                            <form asp-action="CancelAppointment" asp-controller="Appointment" method="post" style="display:inline;">
+                                <input type="hidden" name="appointmentId" value="@appointment.AppointmentID" />
+                                <input type="hidden" name="status" value="2" />
+                                <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+</section>

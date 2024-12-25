@@ -27,9 +27,6 @@
                             <a class="nav-link" asp-action="Index" asp-controller="Services">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="Index" asp-controller="Pricing">Pricing</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Appointment">Appointment</a>
                         </li>
                         <li class="nav-item">
@@ -38,6 +35,32 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Barbers">Barbers</a>
                         </li>
+
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Index" asp-controller="Admin">Admin Panel</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Profile" asp-controller="Account">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Logout" asp-controller="Account">Log Out</a>
+                            </li>
+                        }else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Login" asp-controller="Account">Log In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Register" asp-controller="Account">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -58,10 +81,10 @@
                 <div class="col-md-6 mb-3">
                     <h5 class="">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Services</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Book Appointment</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a asp-action="Index" asp-controller="Home" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a asp-action="Index" asp-controller="Services" class="text-white text-decoration-none">Services</a></li>
+                        <li><a asp-action="Index" asp-controller="Appointment" class="text-white text-decoration-none">Book Appointment</a></li>
+                        <li><a asp-action="Index" asp-controller="Contact" class="text-white text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
             </div>

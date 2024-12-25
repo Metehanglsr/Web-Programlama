@@ -1,4 +1,6 @@
+using BarberApp.Data;
 using BarberApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -9,9 +11,38 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
 });
+
+// Add DbContext with Npgsql configuration
 builder.Services.AddDbContext<BarberDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 2;
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddEntityFrameworkStores<BarberDbContext>()
+.AddDefaultTokenProviders();
+
+
+// Configure cookie settings
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.Cookie = new CookieBuilder
+    {
+        HttpOnly = true,
+        Name = ".BarberApp.Security.Cookie"
+    };
+});
 
 var app = builder.Build();
 
@@ -19,15 +50,13 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseAuthentication();
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(

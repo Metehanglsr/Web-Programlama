@@ -1,0 +1,43 @@
+﻿@model List<User>
+
+<section class="container my-5">
+    <a asp-action="Index" asp-controller="Admin" class="btn-primary btn">Go Back</a>
+
+    <h2>Admin Management</h2>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["msg"]
+        </div>
+    }
+
+    <a href="@Url.Action("CreateAdmin", "Admin")" class="btn btn-primary mb-3">Add Admin</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>UserName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Model)
+            {
+                <tr>
+                    <td>@admin.FirstName</td>
+                    <td>@admin.LastName</td>
+                    <td>@admin.UserName</td>
+                    <td>
+                        <form asp-action="DeleteAdmin" asp-controller="Admin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@admin.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

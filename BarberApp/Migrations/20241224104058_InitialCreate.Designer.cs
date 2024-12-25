@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BarberApp.Migrations
 {
     [DbContext(typeof(BarberDbContext))]
-    [Migration("20241210100755_mig-2")]
-    partial class mig2
+    [Migration("20241224104058_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,35 +24,6 @@ namespace BarberApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("BarberApp.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AdminID"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("AdminID");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("BarberApp.Models.Appointment", b =>
                 {
@@ -91,9 +62,6 @@ namespace BarberApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BarberID"));
 
-                    b.Property<int?>("AdminID")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
@@ -119,8 +87,6 @@ namespace BarberApp.Migrations
 
                     b.HasKey("BarberID");
 
-                    b.HasIndex("AdminID");
-
                     b.ToTable("Barbers");
                 });
 
@@ -145,35 +111,6 @@ namespace BarberApp.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BarberApp.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerID"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("CustomerID");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("BarberApp.Models.Expanse", b =>
                 {
                     b.Property<int>("ExpanseID")
@@ -181,9 +118,6 @@ namespace BarberApp.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ExpanseID"));
-
-                    b.Property<int?>("AdminID")
-                        .HasColumnType("integer");
 
                     b.Property<float>("ExpanseAmount")
                         .HasColumnType("real");
@@ -200,8 +134,6 @@ namespace BarberApp.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("ExpanseID");
-
-                    b.HasIndex("AdminID");
 
                     b.ToTable("Expanses");
                 });
@@ -275,9 +207,6 @@ namespace BarberApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ServiceID"));
 
-                    b.Property<int?>("AdminID")
-                        .HasColumnType("integer");
-
                     b.Property<int>("CategoryID")
                         .HasColumnType("integer");
 
@@ -301,8 +230,6 @@ namespace BarberApp.Migrations
 
                     b.HasKey("ServiceID");
 
-                    b.HasIndex("AdminID");
-
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Services");
@@ -323,6 +250,203 @@ namespace BarberApp.Migrations
                     b.ToTable("ServiceAppointments");
                 });
 
+            modelBuilder.Entity("BarberApp.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isAdmin")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.ToTable("UserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserTokens");
+                });
+
             modelBuilder.Entity("BarberApp.Models.Appointment", b =>
                 {
                     b.HasOne("BarberApp.Models.Barber", "Barber")
@@ -331,7 +455,7 @@ namespace BarberApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BarberApp.Models.Customer", "Customer")
+                    b.HasOne("BarberApp.Models.User", "Customer")
                         .WithMany("Appointments")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -342,20 +466,6 @@ namespace BarberApp.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("BarberApp.Models.Barber", b =>
-                {
-                    b.HasOne("BarberApp.Models.Admin", null)
-                        .WithMany("Barbers")
-                        .HasForeignKey("AdminID");
-                });
-
-            modelBuilder.Entity("BarberApp.Models.Expanse", b =>
-                {
-                    b.HasOne("BarberApp.Models.Admin", null)
-                        .WithMany("Expanses")
-                        .HasForeignKey("AdminID");
-                });
-
             modelBuilder.Entity("BarberApp.Models.Review", b =>
                 {
                     b.HasOne("BarberApp.Models.Barber", "Barber")
@@ -364,7 +474,7 @@ namespace BarberApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BarberApp.Models.Customer", "Customer")
+                    b.HasOne("BarberApp.Models.User", "Customer")
                         .WithMany("Reviews")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -388,10 +498,6 @@ namespace BarberApp.Migrations
 
             modelBuilder.Entity("BarberApp.Models.Service", b =>
                 {
-                    b.HasOne("BarberApp.Models.Admin", null)
-                        .WithMany("Services")
-                        .HasForeignKey("AdminID");
-
                     b.HasOne("BarberApp.Models.Category", "Category")
                         .WithMany("Services")
                         .HasForeignKey("CategoryID")
@@ -420,15 +526,6 @@ namespace BarberApp.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("BarberApp.Models.Admin", b =>
-                {
-                    b.Navigation("Barbers");
-
-                    b.Navigation("Expanses");
-
-                    b.Navigation("Services");
-                });
-
             modelBuilder.Entity("BarberApp.Models.Appointment", b =>
                 {
                     b.Navigation("ServiceAppointments");
@@ -448,16 +545,16 @@ namespace BarberApp.Migrations
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("BarberApp.Models.Customer", b =>
+            modelBuilder.Entity("BarberApp.Models.Service", b =>
+                {
+                    b.Navigation("ServiceAppointments");
+                });
+
+            modelBuilder.Entity("BarberApp.Models.User", b =>
                 {
                     b.Navigation("Appointments");
 
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("BarberApp.Models.Service", b =>
-                {
-                    b.Navigation("ServiceAppointments");
                 });
 #pragma warning restore 612, 618
         }

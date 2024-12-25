@@ -10,6 +10,5 @@ namespace BarberApp.Models
         public float ExpanseAmount { get; set; }
         public string ExpanseDescription { get; set; }
         public DateOnly ExpanseDate { get; set; }
-        public int AdminID { get; set; }
     }
 }

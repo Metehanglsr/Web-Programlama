@@ -268,3 +268,8 @@ C:\Users\mthng\source\repos\Web-Programlama\BarberApp\obj\Debug\net8.0\refint\Ba
 C:\Users\mthng\source\repos\Web-Programlama\BarberApp\obj\Debug\net8.0\BarberApp.pdb
 C:\Users\mthng\source\repos\Web-Programlama\BarberApp\obj\Debug\net8.0\BarberApp.genruntimeconfig.cache
 C:\Users\mthng\source\repos\Web-Programlama\BarberApp\obj\Debug\net8.0\ref\BarberApp.dll
+C:\Users\mthng\source\repos\BarberApp\BarberApp\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\mthng\source\repos\BarberApp\BarberApp\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\mthng\source\repos\BarberApp\BarberApp\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\mthng\source\repos\BarberApp\BarberApp\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\mthng\source\repos\BarberApp\BarberApp\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll

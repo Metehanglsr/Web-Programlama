@@ -1,0 +1,77 @@
+﻿@model List<BarberApp.Models.Category>
+
+@{
+    ViewData["Title"] = "Create Service";
+}
+
+
+<div class="container">
+    <a asp-action="Index" asp-controller="Admin" class="btn-primary btn">Go Back</a>
+
+    <form asp-action="CreateService" asp-controller="Admin" method="post">
+        <!-- Service Name -->
+        <h2 class="my-3">Create Service</h2>
+
+        <div class="form-group">
+            <label for="Name">Service Name</label>
+            <input id="Name" name="Name" class="form-control" />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea id="Description" name="Description" class="form-control"></textarea>
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="Price">Price</label>
+            <input id="Price" name="Price" type="number" step="0.01" class="form-control" />
+        </div>
+
+        <!-- Duration -->
+        <div class="form-group">
+            <label for="Duration">Duration (minutes)</label>
+            <input id="Duration" name="Duration" type="text" class="form-control" />
+        </div>
+
+        <!-- ImageUrl -->
+        <div class="form-group">
+            <label for="imageUrl">Image Url (example.png,jpg,jpeg)</label>
+            <input id="imageUrl" name="ImageUrl" type="text" class="form-control" />
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+            <label for="CategoryID">Category</label>
+            <select id="CategoryID" name="CategoryID" class="form-control">
+                <option disabled>Select a category</option>
+                @foreach (var category in Model)
+                {
+                    <option value="@category.CategoryID">@category.Name</option>
+                }
+            </select>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100 my-3">Save</button>
+    </form>
+</div>
+
+<!-- Show Validation Errors -->
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger mt-3">
+        <ul>
+            @foreach (var error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Show success message -->
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-info mt-3">@TempData["msg"]</div>
+}

@@ -1,0 +1,94 @@
+﻿@model Barber
+
+<div class="container my-5">
+    <div class="card mb-5 shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-4 text-center">
+                <img src="~/images/@Model.ImageUrl" class="img-fluid rounded-start" alt="@Model.Name">
+            </div>
+            <div class="col-md-8 p-4">
+                <h5><strong>@Model.Name @Model.Surname</strong></h5>
+                <p><strong>Specialization:</strong> @Model.Specialization</p>
+                <p><strong>Rating:</strong> @Model.Rating</p>
+                <p><strong>Contact Number:</strong> @Model.PhoneNumber</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-5 shadow-sm">
+        <div class="card-header text-center">
+            <h5><strong>Schedule</strong></h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var schedule in Model.Schedules)
+                    {
+                        <tr>
+                            <td>@schedule.DayOfWeek</td>
+                            <td>@schedule.StartTime.ToShortTimeString()</td>
+                            <td>@schedule.EndTime.ToShortTimeString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-5 shadow-sm">
+        <div class="card-header text-center">
+            <h5><strong>Customer Reviews</strong></h5>
+        </div>
+        <div class="card-body">
+            @if(User.Identity.IsAuthenticated)
+            {
+                <form method="post" asp-action="AddComment" asp-controller="Barbers">
+                    <input type="hidden" name="id" value="@Model.BarberID" />
+                    <div class="mb-3">
+                        <label for="commentText" class="form-label">Write a Comment</label>
+                        <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Share your thoughts..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            }
+            else
+            {
+                <div class="mb-3">
+                    <label for="commentText" class="form-label">Write a Comment</label>
+                    <textarea class="form-control" id="commentText" name="commentText" rows="3" placeholder="Share your thoughts..."></textarea>
+                </div>
+                <a class="text-decoration-none" asp-action="Login" asp-controller="Account">Sign up to leave a comment</a>
+            }
+ 
+
+            <div class="mt-4">
+                @if (Model.Reviews != null && Model.Reviews.Any())
+                {
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="card-title"><strong>@review.Customer.FirstName</strong></h6>
+                                    <small class="text-muted">(@review.ReviewDate.ToShortDateString())</small>
+                                </div>
+                                <p class="mt-2">@review.Comment</p>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center">No comments yet. Be the first to share your thoughts!</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
