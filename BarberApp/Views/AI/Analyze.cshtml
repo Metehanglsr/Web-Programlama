@@ -1,0 +1,47 @@
+﻿@model ImageViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center mb-4">
+                <h1 class="display-5 text-primary">Image Analysis Result</h1>
+            </div>
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+            @if (Model?.ImageBase64 != null)
+            {
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-secondary">Uploaded Image</h5>
+                        <img src="data:image/jpeg;base64,@Model.ImageBase64"
+                             alt="Uploaded Image"
+                             class="img-fluid rounded shadow-sm mt-3"
+                             style="max-height: 300px;" />
+                    </div>
+                </div>
+            }
+
+            @if (Model?.ImageText != null)
+            {
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary text-center">Result</h5>
+                        <p class="card-text text-center fs-5">@Model.ImageText</p>
+                    </div>
+                </div>
+            }
+            else if (ViewBag.ErrorMessage == null)
+            {
+                <div class="alert alert-info text-center">
+                    No analysis result available.
+                </div>
+            }
+        </div>
+    </div>
+</div>

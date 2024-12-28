@@ -47,7 +47,7 @@ namespace BarberApp.Controllers
             DateTime today = DateTime.Now;
             DateTime newDate = DateTime.Parse(date);
             newDate = newDate.AddDays(-1);
-            if (newDate < today)
+            if (newDate.Date < today.Date)
             {
                 TempData["msg"] = "Appointments cannot be made for past dates.";
                 return RedirectToAction("Index");

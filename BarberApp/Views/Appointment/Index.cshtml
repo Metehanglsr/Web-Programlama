@@ -58,44 +58,81 @@
     </section>
 
     <section class="container my-5">
-            @foreach (var barber in barbers)
+        @if (barbers == null || !barbers.Any())
         {
-            foreach (var schedule in barber.Schedules)
+            <div class="alert alert-info text-center">
+                No barbers available for the selected date.
+            </div>
+        }
+        else
+        {
+            @foreach (var barber in barbers)
             {
-                if (ViewBag.SelectedDate.DayOfWeek == schedule.DayOfWeek)
+                foreach (var schedule in barber.Schedules)
                 {
-                    var appointments = barber.Appointments
-                    .Where(a => a.AppointmentDate.Date == ViewBag.SelectedDate.Date)
-                    .Select(a => TimeZoneInfo.ConvertTimeFromUtc(a.AppointmentDate, TimeZoneInfo.Local).TimeOfDay)
-                    .ToList();
-                    var workingHours = Enumerable.Range(schedule.StartTime.Hour, schedule.EndTime.Hour - schedule.StartTime.Hour + 1)
-                    .Select(h => new TimeSpan(h, 0, 0))
-                    .ToList();
-                    var availableHours = workingHours.Except(appointments).ToList();
-                    if (availableHours.Any())
+                    // Seçilen gün kontrolü
+                    if (ViewBag.SelectedDate?.DayOfWeek == schedule.DayOfWeek)
                     {
-                        <div class="border d-flex row my-5">
-                            <div class="col-md-4">
-                                <img src="images/@barber.ImageUrl" class="card-img-top img-fluid" style="width: 15rem;" alt="">
-                            </div>
-                            <div class="col-md-8 p-5">
-                                <p>Full Name: @barber.Name @barber.Surname</p>
-                                <p>Phone Number: @barber.PhoneNumber</p>
-                                <p>Specialization: @barber.Specialization</p>
-                                <p>Rating: @barber.Rating</p>
-                                <input type="hidden" name="BarberID" value="@barber.BarberID" />
-                                <div>
-                                    <p>Available hours:</p>
-                                    @foreach (var hour in availableHours)
-                                    {
-                                        <button type="submit" class="btn btn-outline-info p-2" name="selectedTime" value="@hour.ToString(@"hh\:mm")">@hour.ToString(@"hh\:mm")</button>
-                                    }
+                        var appointments = barber.Appointments
+                        .Where(a => a.AppointmentDate.Date == ViewBag.SelectedDate.Date)
+                        .Select(a => TimeZoneInfo.ConvertTimeFromUtc(a.AppointmentDate, TimeZoneInfo.Local).TimeOfDay)
+                        .ToList();
+
+                        var workingHours = Enumerable.Range(schedule.StartTime.Hour, schedule.EndTime.Hour - schedule.StartTime.Hour + 1)
+                        .Select(h => new TimeSpan(h, 0, 0))
+                        .ToList();
+
+                        List<TimeSpan> availableHours;
+
+                        if (DateTime.Now.Date == ViewBag.SelectedDate.Date)
+                        {
+                            // Bugünkü saatlere göre filtreleme
+                            var todayHours = Enumerable.Range(schedule.StartTime.Hour, DateTime.Now.Hour - schedule.StartTime.Hour + 1)
+                            .Select(h => new TimeSpan(h, 0, 0))
+                            .ToList();
+
+                            availableHours = workingHours.Except(appointments).Except(todayHours).ToList();
+                        }
+                        else
+                        {
+                            availableHours = workingHours.Except(appointments).ToList();
+                        }
+
+                        if (availableHours.Any())
+                        {
+                            <div class="border rounded shadow-sm row my-5">
+                                <!-- Barber Görseli -->
+                                <div class="col-md-4">
+                                    <img src="images/@barber.ImageUrl" class="img-fluid rounded" alt="Barber Image">
+                                </div>
+                                <!-- Barber Bilgileri -->
+                                <div class="col-md-8 p-4">
+                                    <h5 class="text-primary">@barber.Name @barber.Surname</h5>
+                                    <p><strong>Phone:</strong> @barber.PhoneNumber</p>
+                                    <p><strong>Specialization:</strong> @barber.Specialization</p>
+                                    <p><strong>Rating:</strong> @barber.Rating</p>
+
+                                    <input type="hidden" name="BarberID" value="@barber.BarberID" />
+
+                                    <!-- Müsait Saatler -->
+                                    <div class="mt-3">
+                                        <p><strong>Available Hours:</strong></p>
+                                        @foreach (var hour in availableHours)
+                                        {
+                                            <button type="submit" class="btn btn-outline-info me-2 mb-2"
+                                                    name="selectedTime"
+                                                    value="@hour.ToString(@"hh\:mm")">
+                                                @hour.ToString(@"hh\:mm")
+                                            </button>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 }
             }
         }
     </section>
+
 </form>

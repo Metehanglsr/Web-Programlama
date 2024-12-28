@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberApp.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly BarberDbContext _context;

@@ -69,7 +69,7 @@ namespace BarberApp.Controllers
 
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Kullanıcı adı bulunamadı.");
+                    ModelState.AddModelError(string.Empty, "Username not found.");
                     return View(model);
                 }
 
@@ -81,7 +81,7 @@ namespace BarberApp.Controllers
                     {
                         return RedirectToAction("Index", "Admin");
                     }
-                    ModelState.AddModelError(string.Empty, "Geçersiz kullanıcı adı veya şifre.");
+                    ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 }
                 if (user != null)
                 {
@@ -90,7 +90,7 @@ namespace BarberApp.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    ModelState.AddModelError(string.Empty, "Geçersiz kullanıcı adı veya şifre.");
+                    ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 }
                 
             }

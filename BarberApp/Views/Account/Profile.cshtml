@@ -34,7 +34,7 @@
                     <tr>
                         <td>@Model.FirstName @Model.LastName</td>
                         <td>@appointment.Barber.Name @appointment.Barber.Surname</td>
-                        <td>@appointment.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(appointment.AppointmentDate, TimeZoneInfo.Local)</td>
                         <td>
                             @if (appointment.Status == AppointmentStatus.Pending)
 
