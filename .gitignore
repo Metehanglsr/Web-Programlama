@@ -1,0 +1,69 @@
+## Build Results
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio files
+.vscode/
+.vs/
+*.cache
+*.dbmdl
+*.bak
+
+## NuGet
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Publish output
+**/publish/
+**/wwwroot/
+
+## Web config transforms
+*.Release.config
+*.Debug.config
+
+## Logs
+*.log
+
+## IIS Express
+.vs/
+*.vspscc
+*.vssscc
+.idea/
+.ionide/
+
+## Others
+*.swp
+*.tmp
+*.orig
+*.sln.ide
+
+## Rider
+.idea/
+*.sln.iml
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Environment configs
+.env
+appsettings.*.json
+secrets.json
+
+## Client-side
+client/node_modules/
+client/dist/
+client/build/
+client/.env
